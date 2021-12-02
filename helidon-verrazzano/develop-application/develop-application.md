@@ -34,6 +34,8 @@ Oracle Cloud Infrastructure (OCI) Cloud Shell is a web browser-based terminal, a
 
 1. Click on Cloud Shell icon to launch the "Cloud Shell".
 
+![](images/6.png)
+
 You will use the *Cloud Shell* to complete this workshop.
 
 2. Copy the following commands and paste in the Cloud Shell. It downloads the required version of JDK and Maven and set the PATH variable to use the required Maven and JDK.
@@ -159,7 +161,7 @@ mvn package
 java -jar target/quickstart-mp.jar &
 </copy>
 ```
-Press <Enter> to get the prompt.
+Press Enter to get the prompt.
 
 ### Exercise the Application
 
@@ -225,19 +227,6 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 
 ## Task 4: Modify the Application
 
-
-1. Go back to your project directory and open the **GreetResource.java** file.
-
-For example, you will have similar location in your home directory. 
-
-```bash
-<copy>
-vi ~/quickstart-mp/src/main/java/me/<user_name>/mp/quickstart/GreetResource.java
-</copy>
-```
->You can see that it is pure MicroProfile compatible code. You need to note down the package name, which you will use in the next class we are going to create in next step.
-
-
 2. Create a new endpoint that provides help for different greetings in different languages. To create this new functionality, create a new class called **GreetHelpResource** with the following code:
 
 ```java
@@ -268,7 +257,7 @@ public class GreetHelpResource {
 }
 </copy>
 ```
-
+For example, create the file with the similar command, make sure to use your own project location.
 
 ```bash
 <copy>
@@ -325,7 +314,7 @@ And the new endpoint has been added.
 
 >Working with Helidon and its tooling is really easy and fast!
 
-> Run the `ps aux` command to know the process id associated with "java -jar target/quickstart-mp.jar &" process and then use `kill -9 <pid>` to kill this process.
+> Run the **ps aux**` command to know the process id associated with "java -jar target/quickstart-mp.jar &" process and then use **kill -9 <pid>** to kill this process.
 
 7. Leave your Cloud Shell open and continue with Verrazzano installation lab.
 
