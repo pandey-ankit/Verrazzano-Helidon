@@ -55,8 +55,10 @@ Refer to the table documented at this URL [https://docs.oracle.com/en-us/iaas/Co
 ```bash
 <copy>docker build -t ENDPOINT_OF_YOUR_REGION/NAMESPACE_OF_YOUR_TENANCY/quickstart-mp:1.0 .</copy>
 ```
-When the command is ready then run in the terminal what was used to build and run the Helidon application `quickstart-mp` project. The build will produce the following result:
+When the command is ready then run in the Cloud Shell  from the `~/quickstart-mp/` directory. The build will produce the following result:
+
 ```bash
+$ cd ~/quickstart-mp/
 $ docker build iad.ocir.io/tenancynamespace/quickstart-mp:1.0 .
 > docker pull iad.ocir.io/tenancynamespace/quickstart-mp:1.0
 [+] Building 107.5s (19/19) FINISHED                                                                                                            

@@ -144,7 +144,7 @@ quickstart-mp
 ```
 
 ## Task 3: Run the Helidon Greeting Application
-From the same console/terminal, navigate to the quickstart-mp directory and run the following commands:
+In the Cloud Shell, navigate to the quickstart-mp directory and run the following commands:
 
 ```bash
 <copy> cd quickstart-mp
@@ -156,13 +156,14 @@ With JDK11+
 ```bash
 <copy>
 mvn package
-java -jar target/quickstart-mp.jar
+java -jar target/quickstart-mp.jar &
 </copy>
 ```
+Press <Enter> to get the prompt.
 
 ### Exercise the Application
 
-Open a new terminal/console and run the following commands to check the application:
+Run the following commands to check the application:
 
 ```bash
 <copy>
@@ -193,7 +194,7 @@ curl -X GET http://localhost:8080/greet/Jose
 
 ### Review Health and Metrics Data
 
-1. In the same terminal/console, run the following commands to check health and metrics:
+1. Run the following commands to check health and metrics:
 
 ```bash
 <copy>
@@ -220,17 +221,18 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 . . .
 ```
 
-2. Stop the *quickstart-mp* application by entering `ps aux` in the terminal and note the pid associated with "java -jar target/quickstart-mp.jar" and run the command `kill -9 <pid>` to kill the process. You need to replace the `<pid>` with the process id associated with the application.
+2. Stop the *quickstart-mp* application by entering `ps aux` in the Cloud Shell and note the pid associated with "java -jar target/quickstart-mp.jar &" and run the command `kill -9 <pid>` to kill the associated process. You need to replace the `<pid>` with the process id associated with the application.
 
 ## Task 4: Modify the Application
 
 
-1. Go back to your project folder and open the **GreetResource.java** file.
+1. Go back to your project directory and open the **GreetResource.java** file.
 
+For example, you will have similar location in your home directory. 
 
 ```bash
 <copy>
-vi ~/quickstart-mp/src/main/java/me/monica_ric/mp/quickstart/GreetResource.java
+vi ~/quickstart-mp/src/main/java/me/<user_name>/mp/quickstart/GreetResource.java
 </copy>
 ```
 >You can see that it is pure MicroProfile compatible code. You need to note down the package name, which you will use in the next class we are going to create in next step.
@@ -267,7 +269,17 @@ public class GreetHelpResource {
 </copy>
 ```
 
+
+```bash
+<copy>
+vi ~/quickstart-mp/src/main/java/me/<user_name>/mp/quickstart/GreetHelpResource.java
+</copy>
+```
+
 >The class has only one method *getAllGreetings* which returns a list with greetings in different languages. While copying the code, be sure to add the necessary package name on top of class.
+
+Press Esc and then :wq to save the changes.
+
 
 3. Build and run the application:
 
@@ -301,7 +313,7 @@ application_me_buzz_mp_quickstart_GreetHelpResource_helpCalled_total 1
 ...
 ```
 
-6. In the console you will now see the INFO log line about this call:
+6. In the Cloud Shell, you will now see the INFO log line about this call:
 
 ```bash
 INFO me.buzz.mp.quickstart.GreetHelpResource Thread[helidon-4,5,server]: Help requested!
@@ -312,9 +324,10 @@ And the new endpoint has been added.
 ![NewEndpoint](images/4.jpg)
 
 >Working with Helidon and its tooling is really easy and fast!
+
 > Run the `ps aux` command to know the process id associated with "java -jar target/quickstart-mp.jar &" process and then use `kill -9 <pid>` to kill this process.
 
-7. Leave your terminal/console open and continue with Verrazzano installation lab.
+7. Leave your Cloud Shell open and continue with Verrazzano installation lab.
 
 ## Acknowledgements
 

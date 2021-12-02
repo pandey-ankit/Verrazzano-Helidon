@@ -124,9 +124,7 @@ To run this lab, you must have:
 
 ## Task 1: Verify the Verrazzano Installation is Complete
 
-1. Open the Cloud Shell console where you started the Verrazzano installations. If the console stopped due to a timeout, log in and start the Cloud Shell again.
-
-2. To verify a successful Verrazzano installation, copy the following command and paste it in the Cloud Shell. This command checks that the *InstallComplete* condition has been met and notifies you. In this example, *my-verrazzano* is the name of the *Verrazzano Custom Resource*.
+1. To verify a successful Verrazzano installation, copy the following command and paste it in the Cloud Shell. This command checks that the *InstallComplete* condition has been met and notifies you. In this example, *my-verrazzano* is the name of the *Verrazzano Custom Resource*.
 
 ```bash
 <copy>kubectl wait --timeout=10m --for=condition=InstallComplete verrazzano/my-verrazzano</copy>
@@ -172,7 +170,7 @@ cd ~
 ```
 2. Modify the image name in *hello-helidon-comp.yaml*. You can use the `vi` editor:
 ```bash
-<copy>vi hello-helidon-comp.yaml</copy>
+<copy>vi ~/hello-helidon-comp.yaml</copy>
 ```
 
 3. Use `i` to change insert mode and modify the image name to reflect your repository path at line 23:
@@ -183,7 +181,7 @@ For example:
 ```yaml
 image: "ocir.io/tenancynamespace/quickstart-mp:1.0"
 ```
-4. Use `Esc` the quit insert mode and type `wq` to save changes and close the editor.
+4. Use `Esc` the quit insert mode and type `:wq` to save changes and close the editor.
 
 
 5. Create a `hello-helidon` namespace for the Helidon quickstart-mp application. We will keep all Kubernetes artifacts in the separate namespace.
@@ -222,15 +220,19 @@ The `hello-helidon-app.yaml` file is a Verrazzano application configuration file
 ```
 
 8. Wait for the pods to be in *Running* status. Use this *kubectl* command to wait for all the pods to be in the *Running* state within the hello-helidon namespace. It takes around 1-2 minutes.
+
 ```bash
 <copy>kubectl wait --for=condition=Ready pods --all -n hello-helidon --timeout=600s</copy>
 ```
+
 When the pods are ready you can see similar response:
+
 ```bash
 $ kubectl wait --for=condition=Ready pods --all -n hello-helidon --timeout=600s
 pod/hello-helidon-deployment-58fdd5cd4-94wjf condition met
 ```
 You can also list the pods directly to check their status:
+
 ```bash
 $ kubectl  get po -n hello-helidon
 NAME                                       READY   STATUS    RESTARTS   AGE
@@ -242,14 +244,19 @@ hello-helidon-deployment-58fdd5cd4-94wjf   2/2     Running   0          34m
 ## Task 3: Verify the Successful Deployment of the Helidon quickstart-mp Application
 
 1. Verify the `help/allGreetings` endpoint. To determine the URL that was constructed from the external/load balancer IP and application configuration, execute the following command:
+
 ```bash
 <copy>echo https://$(kubectl get gateway hello-helidon-hello-helidon-appconf-gw -n hello-helidon -o jsonpath={.spec.servers[0].hosts[0]})/help/allGreetings</copy>
 ```
+
 This will print the proper URL to your REST endpoint, for example:
+
 ```bash
 https://hello-helidon-appconf.hello-helidon.129.146.154.97.nip.io/help/allGreetings
 ```
+
 2. Use this link to test from your browser. Due to self-signed certificates, however, you need to accept risk and allow the browser to continue the request processing.
+
 You may find it easier to use `curl` because the response is only a string:
 
 ```bash
@@ -257,6 +264,8 @@ You may find it easier to use `curl` because the response is only a string:
 ```
 
 You should see the same result you received during the development:
+
+
 ```yaml
 [Hello, Привет, Hola, Hallo, Ciao, Nǐ hǎo, Marhaba, Olá]
 ```
