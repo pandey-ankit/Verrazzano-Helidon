@@ -227,7 +227,7 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 
 ## Task 4: Modify the Application
 
-2. Create a new endpoint that provides help for different greetings in different languages. To create this new functionality, create a new class called **GreetHelpResource** with the following code:
+1. Create a new endpoint that provides help for different greetings in different languages. To create this new functionality, create a new class called **GreetHelpResource** with the following code:
 
 ```java
 <copy>
