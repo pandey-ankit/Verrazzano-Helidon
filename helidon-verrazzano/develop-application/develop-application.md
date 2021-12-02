@@ -50,13 +50,19 @@ PATH=~/jdk-14.0.2/bin:~/apache-maven-3.6.3/bin:$PATH
 cd ~
 </copy>
 ```
+
+![](images/7.png)
+![](images/8.png)
+![](images/9.png)
 3. Copy the following command and run in the Cloud Shell to verify that required JDK and Maven version are configured properly.
 
 ```bash
 <copy>
-mvn -version
+mvn -v
 </copy>
 ```
+![](images/10.png)
+
 ## Task 2: Install the Helidon CLI
 
 ```bash
@@ -65,6 +71,7 @@ curl -O https://helidon.io/cli/latest/linux/helidon
 chmod +x ./helidon
 </copy>
 ```
+![](images/11.png)
 
 
 ## Task 3: Create Helidon Greeting Application
@@ -72,14 +79,13 @@ chmod +x ./helidon
 ```bash
 <copy>./helidon init --version 2.4.0 </copy>
 ```
+
+
 > To avoid any potential issues, define the specific Helidon version that was tested for this lab's environment.
 
 2. For this demo we will create a MicroProfile supported microservice, so choose option **(2)** for **Helidon MP Flavor**:
 
 ```bash
-Version 2.2.0 of this CLI is now available.
-Please see https://github.com/oracle/helidon-build-tools/blob/master/helidon-cli/CHANGELOG.md to update.
-
 Using Helidon version 2.4.0
 Helidon flavor
   (1) SE
@@ -107,6 +113,8 @@ Start development loop? (Default: n):
 ```
 
 >For the **development loop** accept the default (**n**) for now.
+
+![](images/12.png)
 
 You now have a fully functional Microservice Maven Project:
 
@@ -150,17 +158,13 @@ In the Cloud Shell, navigate to the quickstart-mp directory and run the followin
 
 ```bash
 <copy> cd quickstart-mp
-</copy>
-```
-
-
-With JDK11+
-```bash
-<copy>
 mvn package
 java -jar target/quickstart-mp.jar &
 </copy>
 ```
+![](images/13.png)
+![](images/14.png)
+
 Press Enter to get the prompt.
 
 ### Exercise the Application
@@ -194,6 +198,8 @@ curl -X GET http://localhost:8080/greet/Jose
 {"message":"Hola Jose!"}
 ```
 
+![](images/15.png)
+
 ### Review Health and Metrics Data
 
 1. Run the following commands to check health and metrics:
@@ -224,6 +230,8 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 ```
 
 2. Stop the *quickstart-mp* application by entering `ps aux` in the Cloud Shell and note the pid associated with "java -jar target/quickstart-mp.jar &" and run the command `kill -9 <pid>` to kill the associated process. You need to replace the `<pid>` with the process id associated with the application.
+
+![](images/16.png)
 
 ## Task 4: Modify the Application
 
@@ -264,6 +272,8 @@ For example, create the file with the similar command, make sure to use your own
 vi ~/quickstart-mp/src/main/java/me/<user_name>/mp/quickstart/GreetHelpResource.java
 </copy>
 ```
+![](images/17.png)
+![](images/18.png)
 
 >The class has only one method *getAllGreetings* which returns a list with greetings in different languages. While copying the code, be sure to add the necessary package name on top of class.
 
@@ -280,6 +290,10 @@ java -jar target/quickstart-mp.jar &
 </copy>
 ```
 
+![](images/19.png)
+![](images/20.png)
+
+
 4. Execute the following command and notice the results:
 
 ```bash
@@ -289,6 +303,8 @@ The expected result:
 ```bash
 [Hello, Привет, Hola, Hallo, Ciao, Nǐ hǎo, Marhaba, Olá]
 ```
+
+![](images/21.png)
 
 5. Look at the metrics and you will see that a new counter appeared. Whenever this endpoint is called the value will increment:
 
@@ -302,21 +318,16 @@ application_me_buzz_mp_quickstart_GreetHelpResource_helpCalled_total 1
 ...
 ```
 
-6. In the Cloud Shell, you will now see the INFO log line about this call:
 
-```bash
-INFO me.buzz.mp.quickstart.GreetHelpResource Thread[helidon-4,5,server]: Help requested!
-```
+
 
 And the new endpoint has been added.
-
-![NewEndpoint](images/4.jpg)
 
 >Working with Helidon and its tooling is really easy and fast!
 
 > Run the **ps aux**` command to know the process id associated with "java -jar target/quickstart-mp.jar &" process and then use **kill -9 <pid>** to kill this process.
 
-7. Leave your Cloud Shell open and continue with Verrazzano installation lab.
+6. Leave your Cloud Shell open and continue with Verrazzano installation lab.
 
 ## Acknowledgements
 
