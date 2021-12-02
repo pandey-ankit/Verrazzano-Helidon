@@ -21,7 +21,7 @@ Verrazzano includes the following capabilities:
 
 In this lab, you will:
 
-* Open Cloud Shell and setup `kubectl` to use the Oracle Kubernetes Engine cluster
+* Setup `kubectl` to use the Oracle Kubernetes Engine cluster
 * Install the Verrazzano platform operator.
 * Install the development (`dev`) profile of Verrazzano.
 
@@ -35,9 +35,6 @@ Verrazzano requires the following:
 
 ## Task 1: Configure `kubectl` (Kubernetes Cluster CLI)
 
-Oracle Cloud Infrastructure (OCI) Cloud Shell is a web browser-based terminal, accessible from the Oracle Cloud Console. The Cloud Shell provides access to a Linux shell, with a pre-authenticated Oracle Cloud Infrastructure CLI and other useful tools (*Git, kubectl, helm, OCI CLI*) to complete the Verrazzano tutorials. The Cloud Shell is accessible from the Console. Your Cloud Shell will appear in the Oracle Cloud Console as a persistent frame of the Console, and will stay active as you navigate to different pages of the Console.
-
-You will use the *Cloud Shell* to complete this workshop.
 
 We will use `kubectl` to manage the cluster remotely using the Cloud Shell. It needs a `kubeconfig` file. This will be generated using the OCI CLI which is pre-authenticated, so there’s no setup to do before you can start using it.
 
@@ -49,15 +46,9 @@ We will use `kubectl` to manage the cluster remotely using the Cloud Shell. It n
 
     > A dialog is displayed from which you can open the Cloud Shell and contains the customized OCI command that you need to run, to create a Kubernetes configuration file.
 
-2. Accept the default **Cloud Shell Access** and click **Copy** copy the `oci ce...` command to the Cloud Shell.
+2. Accept the default **Cloud Shell Access** and click **Copy** copy the `oci ce...` command and paste it into the Cloud Shell and run the command.
 
     ![Copy kubectl Config](images/2.png)
-
-3. Click **Launch Cloud Shell** to open the built-in console. Close the configuration dialog before you paste the command into the Cloud Shell.
-
-    ![Launch Cloud Shell](images/3.png)
-
-4. Copy the command from the clipboard and paste it into the Cloud Shell and run the command.
 
     For example, the command looks like the following:
 

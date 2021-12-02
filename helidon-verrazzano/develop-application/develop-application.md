@@ -23,48 +23,52 @@ The CLI is distributed as a standalone executable (compiled using GraalVM) for e
 * View health and metrics data
 * Add new functionality to the app
 
-### Prerequisites
+## Task 1: Creating the environment in the Cloud Shell
 
 * Helidon requires Java 11+
 * Maven 3.6.x
-> **Caution: Do not use the 3.8.x version due to known issue with application build!**
-
 * Java and `mvn` are in your path.
-* Windows users will also need the Visual C++ Redistributable Runtime. <br>
-See [Helidon on Windows](https://helidon.io/docs/v2/#/about/04_windows) for more information.
 
-## Task 1: Install the Helidon CLI
+ 
+Oracle Cloud Infrastructure (OCI) Cloud Shell is a web browser-based terminal, accessible from the Oracle Cloud Console. The Cloud Shell provides access to a Linux shell, with a pre-authenticated Oracle Cloud Infrastructure CLI and other useful tools (*Git, kubectl, helm, OCI CLI*) to complete the Verrazzano tutorials. The Cloud Shell is accessible from the Console. Your Cloud Shell will appear in the Oracle Cloud Console as a persistent frame of the Console, and will stay active as you navigate to different pages of the Console.
 
-MacOS:
+1. Click on Cloud Shell icon to launch the "Cloud Shell".
+
+You will use the *Cloud Shell* to complete this workshop.
+
+2. Copy the following commands and paste in the Cloud Shell. It downloads the required version of JDK and Maven and set the PATH variable to use the required Maven and JDK.
+
 ```bash
 <copy>
-curl -O https://helidon.io/cli/latest/darwin/helidon
-chmod +x ./helidon
-sudo mv ./helidon /usr/local/bin/
+wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+tar -xvf apache-maven-3.6.3-bin.tar.gz
+wget https://download.java.net/java/GA/jdk14.0.2/205943a0976c4ed48cb16f1043c5c647/12/GPL/openjdk-14.0.2_linux-x64_bin.tar.gz
+tar -xzvf openjdk-14.0.2_linux-x64_bin.tar.gz
+PATH=~/jdk-14.0.2/bin:~/apache-maven-3.6.3/bin:$PATH
+cd ~
 </copy>
 ```
+3. Copy the following command and run in the Cloud Shell to verify that required JDK and Maven version are configured properly.
 
-Linux:
+```bash
+<copy>
+mvn -version
+</copy>
+```
+## Task 2: Install the Helidon CLI
+
 ```bash
 <copy>
 curl -O https://helidon.io/cli/latest/linux/helidon
 chmod +x ./helidon
-sudo mv ./helidon /usr/local/bin/
-</copy>
-```
-
-Windows:
-```PowerShell
-<copy>
-PowerShell -Command Invoke-WebRequest -Uri "https://helidon.io/cli/latest/windows/helidon.exe" -OutFile "C:\Windows\system32\helidon.exe"
 </copy>
 ```
 
 
-## Task 2: Create Helidon Greeting Application
+## Task 3: Create Helidon Greeting Application
 1. In your console enter:
 ```bash
-<copy>helidon init --version 2.3.2 </copy>
+<copy>./helidon init --version 2.4.0 </copy>
 ```
 > To avoid any potential issues, define the specific Helidon version that was tested for this lab's environment.
 
@@ -74,7 +78,7 @@ PowerShell -Command Invoke-WebRequest -Uri "https://helidon.io/cli/latest/window
 Version 2.2.0 of this CLI is now available.
 Please see https://github.com/oracle/helidon-build-tools/blob/master/helidon-cli/CHANGELOG.md to update.
 
-Using Helidon version 2.3.2
+Using Helidon version 2.4.0
 Helidon flavor
   (1) SE
   (2) MP
@@ -100,7 +104,7 @@ Switch directory to /Users/mitia/Desktop/quickstart-mp to use CLI
 Start development loop? (Default: n):
 ```
 
->For the **development loop** accept the default (**n**) for now. You will start the development loop later in this lab.
+>For the **development loop** accept the default (**n**) for now.
 
 You now have a fully functional Microservice Maven Project:
 
@@ -216,53 +220,23 @@ curl -H 'Accept: application/json' -X GET http://localhost:8080/metrics
 . . .
 ```
 
-2. Stop the *quickstart-mp* application by entering `Ctrl + C` in the terminal where the "java -jar target/quickstart-mp.jar" command is running.
+2. Stop the *quickstart-mp* application by entering `ps aux` in the terminal and note the pid associated with "java -jar target/quickstart-mp.jar" and run the command `kill -9 <pid>` to kill the process. You need to replace the `<pid>` with the process id associated with the application.
 
 ## Task 4: Modify the Application
 
-1. Open your favorite IDE and navigate to the **microprofile-config.properties** file.
 
-![Initial](images/1.jpg)
+1. Go back to your project folder and open the **GreetResource.java** file.
 
-2. In the console/terminal, navigate to the project folder and enter:
 
 ```bash
-<copy>helidon dev</copy>
+<copy>
+vi ~/quickstart-mp/src/main/java/me/monica_ric/mp/quickstart/GreetResource.java
+</copy>
 ```
+>You can see that it is pure MicroProfile compatible code. You need to note down the package name, which you will use in the next class we are going to create in next step.
 
->This will start the **Development loop** mentioned in the previous task.
 
-3. Change the property *app.greeting* to "Hello Oracle" and save the file.
-
-```properties
-<copy>app.greeting=Hello Oracle</copy>
-```
-
-![HelidonDev](images/2.jpg)
-
->You will see that whenever you change a file, the **Helidon CLI** recognizes there is a change, recompiles the app, and reruns it. Since Helidon is small, everything happens quickly.
-
-4. In the console/terminal, enter the following:
-
-```bash
-<copy>curl -X GET http://localhost:8080/greet</copy>
-```
-
-The result is expected to be:
-
-```json
-{"message":"Hello Oracle World!"}
-```
-
-Be sure to stop the development loop with `CTRL+C`
-
-5. Go back to your project folder and open the **GreetResource.java** file.
-
->You can see that it is pure MicroProfile compatible code:
-
-![ModifyJava](images/3.jpg)
-
-6. Create a new endpoint that provides help for different greetings in different languages. To create this new functionality, create a new class called **GreetHelpResource** with the following code:
+2. Create a new endpoint that provides help for different greetings in different languages. To create this new functionality, create a new class called **GreetHelpResource** with the following code:
 
 ```java
 <copy>
@@ -295,16 +269,17 @@ public class GreetHelpResource {
 
 >The class has only one method *getAllGreetings* which returns a list with greetings in different languages. While copying the code, be sure to add the necessary package name on top of class.
 
-7. Build and run the application:
+3. Build and run the application:
 
 ```bash
 <copy>
+cd ~/quickstart-mp/
 mvn package -DskipTests
-java -jar target/quickstart-mp.jar
+java -jar target/quickstart-mp.jar &
 </copy>
 ```
 
-8. Execute the following command and notice the results:
+4. Execute the following command and notice the results:
 
 ```bash
 <copy>curl http://localhost:8080/help/allGreetings</copy>
@@ -314,7 +289,7 @@ The expected result:
 [Hello, Привет, Hola, Hallo, Ciao, Nǐ hǎo, Marhaba, Olá]
 ```
 
-9. Look at the metrics and you will see that a new counter appeared. Whenever this endpoint is called the value will increment:
+5. Look at the metrics and you will see that a new counter appeared. Whenever this endpoint is called the value will increment:
 
 ```bash
 curl http://localhost:8080/metrics
@@ -326,8 +301,7 @@ application_me_buzz_mp_quickstart_GreetHelpResource_helpCalled_total 1
 ...
 ```
 
-
-10. In the console you will now see the INFO log line about this call:
+6. In the console you will now see the INFO log line about this call:
 
 ```bash
 INFO me.buzz.mp.quickstart.GreetHelpResource Thread[helidon-4,5,server]: Help requested!
@@ -338,8 +312,9 @@ And the new endpoint has been added.
 ![NewEndpoint](images/4.jpg)
 
 >Working with Helidon and its tooling is really easy and fast!
+> Run the `ps aux` command to know the process id associated with "java -jar target/quickstart-mp.jar &" process and then use `kill -9 <pid>` to kill this process.
 
-11. Leave your terminal/console open and continue with Verrazzano installation lab.
+7. Leave your terminal/console open and continue with Verrazzano installation lab.
 
 ## Acknowledgements
 
