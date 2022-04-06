@@ -191,51 +191,9 @@ According to our DNS choice, we can use nip.io (wildcard DNS) or [Oracle OCI DNS
     $
     ```
 
-    > It takes around 10 to 15 minutes to complete the installation. To view the installation logs, go to the next commands.
+    > It takes around 10 to 15 minutes to complete the installation. 
 
-2. The Verrazzano operator launches a Kubernetes job to install Verrazzano. You can view the installation logs from that job with the following command:
-
-````bash
-<copy>kubectl logs -n verrazzano-install \
- -f $(kubectl get pod \
- -n verrazzano-install \
- -l app=verrazzano-platform-operator \
- -o jsonpath="{.items[0].metadata.name}") | grep '^{.*}$' \
- | jq -r '."@timestamp" as $timestamp | "\($timestamp) \(.level) \(.message)"'</copy>
-````
-
-The output should be similar to the following:
-    
-````bash
-  $ kubectl logs -n verrazzano-install \
->     -f $(kubectl get pod \
->     -n verrazzano-install \
->     -l app=verrazzano-platform-operator \
->     -o jsonpath="{.items[0].metadata.name}") | grep '^{.*}$' \
->     | jq -r '."@timestamp" as $timestamp | "\($timestamp) \(.level) \(.message)"'
-      2022-03-15T12:24:11.756Z info Starting Verrazzano Platform Operator
-      2022-03-15T12:24:13.340Z info metrics server is starting to listen
-      2022-03-15T12:24:13.341Z info skip registering a mutating webhook, admission.Defaulter interface is not implemented
-      2022-03-15T12:24:13.341Z info Registering a validating webhook
-      2022-03-15T12:24:13.341Z info registering webhook
-      2022-03-15T12:24:13.341Z info skip registering a mutating webhook, admission.Defaulter interface is not implemented
-      2022-03-15T12:24:13.341Z info Registering a validating webhook
-      2022-03-15T12:24:13.341Z info registering webhook
-      2022-03-15T12:24:13.341Z info Starting controller-runtime manager
-      2022-03-15T12:24:13.342Z info starting metrics server
-      2022-03-15T12:24:13.342Z info starting webhook server
-      2022-03-15T12:24:13.342Z info Starting EventSource
-      2022-03-15T12:24:13.342Z info Starting EventSource
-      2022-03-15T12:24:13.342Z info Updated current TLS certificate
-      2022-03-15T12:24:13.343Z info Starting certificate watcher
-      2022-03-15T12:24:13.343Z info serving webhook server
-      2022-03-15T12:24:13.742Z info Starting Controller
-      2022-03-15T12:24:13.843Z info Starting workers
-    $
-````
-    
-
-3. Leave the *Cloud Shell* open and let the installation running. Please continue with the next lab.
+2. Let the installation running. Please continue with the next lab.
 
 ## Acknowledgements
 

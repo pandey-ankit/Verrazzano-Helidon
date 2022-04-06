@@ -276,7 +276,7 @@ vi ~/quickstart-mp/src/main/java/me/<user_name>/mp/quickstart/GreetHelpResource.
 ![](images/17.png)
 ![](images/18.png)
 
->The class has only one method *getAllGreetings* which returns a list with greetings in different languages. While copying the code, be sure to add the necessary package name on top of class.
+>**IMPORTANT**: The class has only one method *getAllGreetings* which returns a list with greetings in different languages. While copying the code, be sure to *add the necessary package name* on top of class as shown in screenshot above.
 
 Press Esc and then :wq to save the changes.
 
